@@ -560,12 +560,98 @@ h1 {
         grid-template-columns: 1fr;
     }
 }
+/* ================================
+   PHONE ROTATION SCREEN
+================================ */
+
+.rotate-screen {
+    display: none;
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+
+    body {
+        overflow: hidden;
+    }
+
+    /* Hide the actual website only in portrait phone mode */
+    .website {
+        display: none !important;
+    }
+
+    .rotate-screen {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 30px;
+        background: linear-gradient(135deg, #dff4ff, #fff4d6);
+        z-index: 9999;
+    }
+
+    .rotate-icon {
+        font-size: 64px;
+        margin-bottom: 20px;
+        animation: rotatePhone 2s ease-in-out infinite;
+    }
+
+    .rotate-screen h1 {
+        color: #315b7d;
+        font-size: clamp(25px, 7vw, 38px);
+        margin-bottom: 12px;
+        font-family: "Comic Sans MS", "Segoe Print", sans-serif;
+    }
+
+    .rotate-screen p {
+        color: #527089;
+        font-size: clamp(15px, 4vw, 20px);
+        line-height: 1.5;
+        max-width: 420px;
+    }
+
+    .rotate-tip {
+        margin-top: 22px;
+        padding: 10px 20px;
+        border-radius: 25px;
+        background: rgba(255, 255, 255, 0.75);
+        color: #7b6a3f;
+        font-size: 14px;
+        box-shadow: 0 5px 18px rgba(70, 100, 130, 0.12);
+    }
+}
+
+@keyframes rotatePhone {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(90deg);
+    }
+}
 
 </style>
 </head>
 
 
 <body>
+    <div class="rotate-screen">
+    <div class="rotate-icon">📱↔️</div>
+
+    <h1>Please Rotate Your Phone</h1>
+
+    <p>
+        Turn your phone sideways to enter
+        <strong>BIS: The Standard Detective</strong>.
+    </p>
+
+    <div class="rotate-tip">
+        🔎 Landscape mode gives you the full detective experience!
+    </div>
+</div>
 
 
 <!-- =====================================================
