@@ -36,7 +36,9 @@
             justify-content: center;
             align-items: center;
 
-            overflow: hidden;
+            /* FIXED: allow vertical scrolling */
+            overflow-x: hidden;
+            overflow-y: auto;
 
             color: #123f91;
         }
@@ -610,6 +612,7 @@
         @media (max-width: 600px) {
 
             body {
+                overflow-x: hidden;
                 overflow-y: auto;
             }
 
@@ -660,78 +663,144 @@
                 right: 20px;
             }
         }
-        /* ================================
-   PHONE ROTATION SCREEN
-================================ */
 
-.rotate-screen {
-    display: none;
-}
 
-@media (max-width: 600px) and (orientation: portrait) {
+        /* =====================================
+           PHONE ROTATION SCREEN
+        ===================================== */
 
-    body {
-        overflow: hidden;
-    }
+        .rotate-screen {
+            display: none;
+        }
 
-    /* Hide the actual website only in portrait phone mode */
-    .website {
-        display: none !important;
-    }
+        @media (max-width: 600px) and (orientation: portrait) {
 
-    .rotate-screen {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 30px;
-        background: linear-gradient(135deg, #dff4ff, #fff4d6);
-        z-index: 9999;
-    }
+            body {
+                overflow: hidden;
+            }
 
-    .rotate-icon {
-        font-size: 64px;
-        margin-bottom: 20px;
-        animation: rotatePhone 2s ease-in-out infinite;
-    }
+            /*
+               Hide the actual page only while
+               the phone is in portrait mode.
+            */
+            .page {
+                display: none !important;
+            }
 
-    .rotate-screen h1 {
-        color: #315b7d;
-        font-size: clamp(25px, 7vw, 38px);
-        margin-bottom: 12px;
-        font-family: "Comic Sans MS", "Segoe Print", sans-serif;
-    }
+            .rotate-screen {
+                position: fixed;
+                inset: 0;
 
-    .rotate-screen p {
-        color: #527089;
-        font-size: clamp(15px, 4vw, 20px);
-        line-height: 1.5;
-        max-width: 420px;
-    }
+                display: flex;
 
-    .rotate-tip {
-        margin-top: 22px;
-        padding: 10px 20px;
-        border-radius: 25px;
-        background: rgba(255, 255, 255, 0.75);
-        color: #7b6a3f;
-        font-size: 14px;
-        box-shadow: 0 5px 18px rgba(70, 100, 130, 0.12);
-    }
-}
+                flex-direction: column;
 
-@keyframes rotatePhone {
-    0%, 100% {
-        transform: rotate(0deg);
-    }
+                align-items: center;
+                justify-content: center;
 
-    50% {
-        transform: rotate(90deg);
-    }
-}
+                text-align: center;
+
+                padding: 30px;
+
+                background:
+                    linear-gradient(
+                        135deg,
+                        #dff4ff,
+                        #fff4d6
+                    );
+
+                z-index: 9999;
+            }
+
+            .rotate-icon {
+                font-size: 64px;
+
+                margin-bottom: 20px;
+
+                animation:
+                    rotatePhone
+                    2s
+                    ease-in-out
+                    infinite;
+            }
+
+            .rotate-screen h1 {
+
+                color: #315b7d;
+
+                font-size:
+                    clamp(
+                        25px,
+                        7vw,
+                        38px
+                    );
+
+                margin-bottom: 12px;
+
+                font-family:
+                    "Comic Sans MS",
+                    "Segoe Print",
+                    sans-serif;
+            }
+
+            .rotate-screen p {
+
+                color: #527089;
+
+                font-size:
+                    clamp(
+                        15px,
+                        4vw,
+                        20px
+                    );
+
+                line-height: 1.5;
+
+                max-width: 420px;
+            }
+
+            .rotate-tip {
+
+                margin-top: 22px;
+
+                padding: 10px 20px;
+
+                border-radius: 25px;
+
+                background:
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        0.75
+                    );
+
+                color: #7b6a3f;
+
+                font-size: 14px;
+
+                box-shadow:
+                    0 5px 18px
+                    rgba(
+                        70,
+                        100,
+                        130,
+                        0.12
+                    );
+            }
+        }
+
+
+        @keyframes rotatePhone {
+
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(90deg);
+            }
+        }
 
     </style>
 
@@ -739,223 +808,243 @@
 
 
 <body>
+
+    <!-- =====================================
+         PHONE ROTATION SCREEN
+    ====================================== -->
+
     <div class="rotate-screen">
-    <div class="rotate-icon">📱↔️</div>
 
-    <h1>Please Rotate Your Phone</h1>
-
-    <p>
-        Turn your phone sideways to enter
-        <strong>BIS: The Standard Detective</strong>.
-    </p>
-
-    <div class="rotate-tip">
-        🔎 Landscape mode gives you the full detective experience!
-    </div>
-</div>
-
-
-<div class="page">
-
-
-    <div class="investigation-card">
-
-
-        <!-- CLOSE BUTTON -->
-
-        <a
-            href="index.html"
-            class="close-button"
-            title="Back to Home">
-
-            ×
-
-        </a>
-
-
-        <!-- FOOTPRINTS -->
-
-        <div class="footprint one">
-            👣
+        <div class="rotate-icon">
+            📱↔️
         </div>
 
-        <div class="footprint two">
-            👣
-        </div>
-
-        <div class="footprint three">
-            👣
-        </div>
-
-        <div class="footprint four">
-            👣
-        </div>
-
-
-        <!-- TITLE -->
-
-        <h1 class="title">
-            HOW IT WORKS
+        <h1>
+            Please Rotate Your Phone
         </h1>
 
-        <p class="subtitle">
-            It's simple! Just follow these steps:
+        <p>
+            Turn your phone sideways to enter
+            <strong>
+                BIS: The Standard Detective
+            </strong>.
         </p>
 
-
-        <!-- FOUR STEPS -->
-
-        <div class="steps">
-
-
-            <!-- STEP 1 -->
-
-            <div class="step">
-
-                <div class="number">
-                    1
-                </div>
-
-                <div class="icon-circle">
-
-                    <div class="icon">
-                        🔍
-                    </div>
-
-                </div>
-
-                <h2 class="step-title">
-                    Investigate<br>
-                    the products
-                </h2>
-
-                <div class="arrow">
-                    →
-                </div>
-
-            </div>
-
-
-            <!-- STEP 2 -->
-
-            <div class="step">
-
-                <div class="number">
-                    2
-                </div>
-
-                <div class="icon-circle">
-
-                    <div class="icon">
-                        🏷️
-                    </div>
-
-                </div>
-
-                <h2 class="step-title">
-                    Identify<br>
-                    the relevant marks
-                </h2>
-
-                <div class="arrow">
-                    →
-                </div>
-
-            </div>
-
-
-            <!-- STEP 3 -->
-
-            <div class="step">
-
-                <div class="number">
-                    3.
-                </div>
-
-                <div class="icon-circle">
-
-                    <div class="icon">
-                        💡
-                    </div>
-
-                </div>
-
-                <h2 class="step-title">
-                    Solve<br>
-                    the clues
-                </h2>
-
-                <div class="arrow">
-                    →
-                </div>
-
-            </div>
-
-
-            <!-- STEP 4 -->
-
-            <div class="step">
-
-                <div class="number">
-                    4
-                </div>
-
-                <div class="icon-circle">
-
-                    <div class="icon">
-                        🏆
-                    </div>
-
-                </div>
-
-                <h2 class="step-title">
-                    Complete<br>
-                    the challenge
-                </h2>
-
-            </div>
-
-
+        <div class="rotate-tip">
+            🔎 Landscape mode gives you the full detective experience!
         </div>
 
+    </div>
 
-        <!-- BOTTOM BUTTON -->
 
-        <div class="bottom-area">
+    <!-- =====================================
+         MAIN PAGE
+    ====================================== -->
+
+    <div class="page">
+
+
+        <div class="investigation-card">
+
+
+            <!-- CLOSE BUTTON -->
 
             <a
-                href="cases.html"
-                class="start-button">
+                href="index.html"
+                class="close-button"
+                title="Back to Home">
 
-                Got it! Let's Start
-                <span>→</span>
+                ×
 
             </a>
 
-        </div>
+
+            <!-- FOOTPRINTS -->
+
+            <div class="footprint one">
+                👣
+            </div>
+
+            <div class="footprint two">
+                👣
+            </div>
+
+            <div class="footprint three">
+                👣
+            </div>
+
+            <div class="footprint four">
+                👣
+            </div>
 
 
-        <!-- GOOD LUCK -->
+            <!-- TITLE -->
 
-        <div class="good-luck">
-            Good<br>
-            Luck! :)
-        </div>
+            <h1 class="title">
+                HOW IT WORKS
+            </h1>
+
+            <p class="subtitle">
+                It's simple! Just follow these steps:
+            </p>
 
 
-        <div class="little-star star-one">
-            ✦
-        </div>
+            <!-- FOUR STEPS -->
 
-        <div class="little-star star-two">
-            ✦
+            <div class="steps">
+
+
+                <!-- STEP 1 -->
+
+                <div class="step">
+
+                    <div class="number">
+                        1
+                    </div>
+
+                    <div class="icon-circle">
+
+                        <div class="icon">
+                            🔍
+                        </div>
+
+                    </div>
+
+                    <h2 class="step-title">
+                        Investigate<br>
+                        the products
+                    </h2>
+
+                    <div class="arrow">
+                        →
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 2 -->
+
+                <div class="step">
+
+                    <div class="number">
+                        2
+                    </div>
+
+                    <div class="icon-circle">
+
+                        <div class="icon">
+                            🏷️
+                        </div>
+
+                    </div>
+
+                    <h2 class="step-title">
+                        Identify<br>
+                        the relevant marks
+                    </h2>
+
+                    <div class="arrow">
+                        →
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 3 -->
+
+                <div class="step">
+
+                    <div class="number">
+                        3.
+                    </div>
+
+                    <div class="icon-circle">
+
+                        <div class="icon">
+                            💡
+                        </div>
+
+                    </div>
+
+                    <h2 class="step-title">
+                        Solve<br>
+                        the clues
+                    </h2>
+
+                    <div class="arrow">
+                        →
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 4 -->
+
+                <div class="step">
+
+                    <div class="number">
+                        4
+                    </div>
+
+                    <div class="icon-circle">
+
+                        <div class="icon">
+                            🏆
+                        </div>
+
+                    </div>
+
+                    <h2 class="step-title">
+                        Complete<br>
+                        the challenge
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- BOTTOM BUTTON -->
+
+            <div class="bottom-area">
+
+                <a
+                    href="cases.html"
+                    class="start-button">
+
+                    Got it! Let's Start
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- GOOD LUCK -->
+
+            <div class="good-luck">
+                Good<br>
+                Luck! :)
+            </div>
+
+
+            <div class="little-star star-one">
+                ✦
+            </div>
+
+            <div class="little-star star-two">
+                ✦
+            </div>
+
+
         </div>
 
 
     </div>
-
-
-</div>
 
 
 </body>
