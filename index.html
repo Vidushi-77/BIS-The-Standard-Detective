@@ -30,21 +30,16 @@
 
         .website {
             position: relative;
-
             width: 100%;
             max-width: 1536px;
-
             margin: auto;
         }
 
         .main-image {
             display: block;
-
             width: 100%;
             height: auto;
-
             user-select: none;
-
             animation: gentleZoom 8s ease-in-out infinite alternate;
         }
 
@@ -259,10 +254,26 @@
 
 
         /* =========================
-           MOBILE
+           MOBILE ONLY
         ========================= */
 
         @media (max-width: 600px) {
+
+            body {
+                background: #dff4ff;
+            }
+
+            .website {
+                width: 100%;
+                max-width: none;
+                margin: 0 auto;
+            }
+
+            .main-image {
+                width: 100%;
+                height: auto;
+                animation: none;
+            }
 
             .nav-link {
                 top: 3.5%;
