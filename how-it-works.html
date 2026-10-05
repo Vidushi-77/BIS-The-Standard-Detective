@@ -15,6 +15,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            min-height: 100%;
+        }
+
         body {
             min-height: 100vh;
             font-family: Arial, Helvetica, sans-serif;
@@ -671,20 +675,52 @@
 
         @media (max-width: 950px) and (orientation: landscape) {
 
+            html {
+                min-height: 100%;
+                height: auto;
+                overflow-x: hidden;
+                overflow-y: auto;
+            }
+
             body {
+                min-height: 100%;
+                height: auto;
+
                 display: block;
+
                 overflow-x: hidden;
                 overflow-y: auto;
             }
 
             .page {
+                width: 100%;
+
                 min-height: auto;
-                padding: 25px;
+                height: auto;
+
                 display: block;
+
+                padding: 25px;
             }
 
             .investigation-card {
+
+                width: min(1180px, 94vw);
+
+                min-height: 700px;
+                height: auto;
+
                 margin: 0 auto;
+
+                overflow: visible;
+            }
+
+            .steps {
+                margin-bottom: 20px;
+            }
+
+            .bottom-area {
+                padding-bottom: 30px;
             }
         }
 
@@ -699,6 +735,7 @@
 
         @media (max-width: 600px) and (orientation: portrait) {
 
+            html,
             body {
                 overflow: hidden;
             }
@@ -708,7 +745,9 @@
             }
 
             .rotate-screen {
+
                 position: fixed;
+
                 inset: 0;
 
                 display: flex;
@@ -716,6 +755,7 @@
                 flex-direction: column;
 
                 align-items: center;
+
                 justify-content: center;
 
                 text-align: center;
@@ -863,7 +903,6 @@
     ===================================== -->
 
     <div class="page">
-
 
         <div class="investigation-card">
 
@@ -1063,7 +1102,6 @@
 
 
         </div>
-
 
     </div>
 
