@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>BIS: The Standard Detective</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #dff4ff;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           MAIN IMAGE AREA
+        ========================= */
+
+        .website {
+            position: relative;
+
+            width: 100%;
+            max-width: 1536px;
+
+            margin: auto;
+        }
+
+        .main-image {
+            display: block;
+
+            width: 100%;
+            height: auto;
+
+            user-select: none;
+
+            animation: gentleZoom 8s ease-in-out infinite alternate;
+        }
+
+
+        /* =========================
+           CLICKABLE NAVIGATION
+        ========================= */
+
+        .nav-link {
+            position: absolute;
+
+            top: 4%;
+            height: 6%;
+
+            z-index: 10;
+
+            display: block;
+
+            border-radius: 20px;
+
+            text-decoration: none;
+
+            transition: 0.25s;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.18);
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 5px 15px rgba(20, 70, 140, 0.15);
+        }
+
+
+        /* Individual navigation positions */
+
+        .home-link {
+            left: 44%;
+            width: 8%;
+        }
+
+        .cases-link {
+            left: 54%;
+            width: 8%;
+        }
+
+        .marks-link {
+            left: 63.5%;
+            width: 8%;
+        }
+
+        .quiz-link {
+            left: 73%;
+            width: 7%;
+        }
+
+        .score-link {
+            left: 82%;
+            width: 8%;
+        }
+
+
+        /* =========================
+           START INVESTIGATION BUTTON
+        ========================= */
+
+        .start-link {
+            position: absolute;
+
+            left: 11.5%;
+            top: 67.5%;
+
+            width: 35.5%;
+            height: 10%;
+
+            z-index: 10;
+
+            border-radius: 50px;
+
+            text-decoration: none;
+
+            transition: 0.25s;
+        }
+
+        .start-link:hover {
+            transform: translateY(-5px);
+
+            background: rgba(255, 255, 255, 0.12);
+
+            box-shadow:
+                0 8px 20px rgba(180, 120, 10, 0.20);
+        }
+
+        .start-link:active {
+            transform: translateY(2px);
+        }
+
+
+        /* =========================
+           ANIMATED SPARKLES
+        ========================= */
+
+        .sparkle {
+            position: absolute;
+
+            z-index: 8;
+
+            color: #f5b51b;
+
+            font-size: 24px;
+
+            pointer-events: none;
+
+            animation: sparkle 2s ease-in-out infinite alternate;
+        }
+
+        .sparkle-one {
+            left: 48%;
+            top: 34%;
+        }
+
+        .sparkle-two {
+            left: 73%;
+            top: 46%;
+
+            animation-delay: 0.7s;
+        }
+
+        .sparkle-three {
+            left: 55%;
+            top: 59%;
+
+            animation-delay: 1.2s;
+        }
+
+
+        /* =========================
+           SMALL MOVING CLUE
+        ========================= */
+
+        .clue-glow {
+            position: absolute;
+
+            left: 69%;
+            top: 31%;
+
+            width: 16%;
+            height: 9%;
+
+            border-radius: 20px;
+
+            pointer-events: none;
+
+            z-index: 7;
+
+            animation: clueGlow 2.5s ease-in-out infinite;
+        }
+
+
+        /* =========================
+           ANIMATIONS
+        ========================= */
+
+        @keyframes gentleZoom {
+
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.015);
+            }
+
+        }
+
+
+        @keyframes sparkle {
+
+            from {
+                opacity: 0.35;
+
+                transform:
+                    scale(0.8)
+                    rotate(0deg);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    scale(1.2)
+                    rotate(12deg);
+            }
+
+        }
+
+
+        @keyframes clueGlow {
+
+            0%, 100% {
+                box-shadow:
+                    0 0 0 rgba(255, 196, 40, 0);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 25px rgba(255, 196, 40, 0.35);
+            }
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .nav-link {
+                top: 3.5%;
+            }
+
+            .start-link {
+                top: 67%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="website">
+
+
+    <!-- YOUR ACTUAL IMAGE -->
+
+    <img
+        src="bis-background.jpeg"
+        class="main-image"
+        alt="BIS The Standard Detective"
+    >
+
+
+    <!-- =========================
+         INVISIBLE CLICKABLE NAVIGATION
+    ========================= -->
+
+    <a
+        href="index.html"
+        class="nav-link home-link"
+        aria-label="Home">
+    </a>
+
+
+    <a
+        href="cases.html"
+        class="nav-link cases-link"
+        aria-label="Cases">
+    </a>
+
+
+    <a
+        href="marks.html"
+        class="nav-link marks-link"
+        aria-label="Marks">
+    </a>
+
+
+    <a
+        href="quiz.html"
+        class="nav-link quiz-link"
+        aria-label="Quiz">
+    </a>
+
+
+    <a
+        href="score.html"
+        class="nav-link score-link"
+        aria-label="Score">
+    </a>
+
+
+    <!-- =========================
+         START INVESTIGATION
+    ========================= -->
+
+    <a
+        href="how-it-works.html"
+        class="start-link"
+        aria-label="Start the Investigation">
+    </a>
+
+
+    <!-- =========================
+         DECORATIVE ANIMATIONS
+    ========================= -->
+
+    <div class="sparkle sparkle-one">
+        âœ¦
+    </div>
+
+    <div class="sparkle sparkle-two">
+        âœ¦
+    </div>
+
+    <div class="sparkle sparkle-three">
+        âœ¦
+    </div>
+
+
+    <div class="clue-glow"></div>
+
+
+</div>
+
+
+</body>
+
+</html>

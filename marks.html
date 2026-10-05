@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BIS Marks - The Standard Detective</title>
+
+
+<style>
+
+/* ================= BASIC RESET ================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    background: #d7b88e;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+
+/* ================= MAIN PAGE ================= */
+
+.marks-page {
+
+    position: relative;
+
+    width: 100vw;
+
+    aspect-ratio: 1536 / 1024;
+
+    margin: 0 auto;
+
+    background-image: url("marks.jpeg");
+
+    background-repeat: no-repeat;
+
+    background-position: top center;
+
+    background-size: 100% 100%;
+
+    overflow: hidden;
+}
+
+
+/* ================= NAVIGATION ================= */
+
+.nav {
+
+    position: absolute;
+
+    top: 2.7%;
+
+    right: 3.2%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    z-index: 50;
+}
+
+
+.nav a {
+
+    display: block;
+
+    text-decoration: none;
+
+    color: #173f75;
+
+    font-size: clamp(11px, 1vw, 17px);
+
+    font-weight: bold;
+
+    padding: 8px 13px;
+
+    background: rgba(255,255,255,0.96);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 3px 9px rgba(0,0,0,0.16);
+
+    transition: 0.2s ease;
+}
+
+
+.nav a:hover {
+
+    background: #e7f0fa;
+
+    transform: translateY(-2px);
+}
+
+
+/* ================= LEARN MORE BUTTONS ================= */
+
+.learn-button {
+
+    position: absolute;
+
+    border: none;
+
+    padding: 9px 18px;
+
+    border-radius: 22px;
+
+    font-size: clamp(10px, 0.95vw, 15px);
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    z-index: 30;
+
+    box-shadow:
+        0 3px 7px rgba(0,0,0,0.18);
+
+    transition: 0.2s ease;
+}
+
+
+.learn-button:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 5px 10px rgba(0,0,0,0.22);
+}
+
+
+/* ================= CARD 1 ================= */
+/* BIS STANDARD MARK */
+
+.mark1 {
+
+    left: 13.0%;
+
+    top: 77.5%;
+
+    background: #2589c9;
+
+    color: white;
+}
+
+
+/* ================= CARD 2 ================= */
+/* ISI MARK */
+
+.mark2 {
+
+    left: 34.8%;
+
+    top: 77.5%;
+
+    background: #e9b52f;
+
+    color: #173f75;
+}
+
+
+/* ================= CARD 3 ================= */
+/* HALLMARK */
+
+.mark3 {
+
+    left: 55.7%;
+
+    top: 77.5%;
+
+    background: #df7595;
+
+    color: white;
+}
+
+
+/* ================= CARD 4 ================= */
+/* CERTIFICATION MARK */
+
+.mark4 {
+
+    left: 76.8%;
+
+    top: 77.5%;
+
+    background: #38a873;
+
+    color: white;
+}
+
+
+/* ================= POPUP OVERLAY ================= */
+
+.overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(20,35,55,0.62);
+
+    z-index: 100;
+}
+
+
+.overlay.show {
+
+    display: flex;
+}
+
+
+/* ================= POPUP ================= */
+
+.popup {
+
+    width: min(600px, 92vw);
+
+    max-height: 88vh;
+
+    overflow-y: auto;
+
+    padding: 30px;
+
+    text-align: center;
+
+    background: #fff8e8;
+
+    border: 5px solid #d59b4b;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.35);
+}
+
+
+.popup h2 {
+
+    margin-bottom: 15px;
+
+    color: #173f75;
+
+    font-size: clamp(23px, 3vw, 35px);
+}
+
+
+.popup p {
+
+    margin-bottom: 12px;
+
+    color: #55473b;
+
+    font-size: 17px;
+
+    line-height: 1.55;
+}
+
+
+.popup strong {
+
+    color: #173f75;
+}
+
+
+/* ================= CLOSE BUTTON ================= */
+
+.close {
+
+    margin-top: 15px;
+
+    border: none;
+
+    padding: 10px 25px;
+
+    border-radius: 22px;
+
+    background: #173f75;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.close:hover {
+
+    transform: translateY(-2px);
+
+    background: #0f315e;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 700px) {
+
+    .nav {
+
+        top: 2%;
+
+        right: 2%;
+
+        gap: 5px;
+    }
+
+
+    .nav a {
+
+        padding: 5px 7px;
+
+        font-size: 10px;
+    }
+
+
+    .learn-button {
+
+        padding: 6px 10px;
+
+        font-size: 8px;
+    }
+
+
+    .mark1 {
+
+        left: 12.3%;
+
+        top: 77%;
+    }
+
+
+    .mark2 {
+
+        left: 34.5%;
+
+        top: 77%;
+    }
+
+
+    .mark3 {
+
+        left: 55.5%;
+
+        top: 77%;
+    }
+
+
+    .mark4 {
+
+        left: 76.5%;
+
+        top: 77%;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================================================= -->
+<!-- MAIN MARKS PAGE -->
+<!-- ================================================= -->
+
+<div class="marks-page">
+
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <nav class="nav">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="cases.html">
+            Cases
+        </a>
+
+        <a href="marks.html">
+            Marks
+        </a>
+
+        <a href="quiz.html">
+            Quiz
+        </a>
+
+        <a href="score.html">
+            Score
+        </a>
+
+    </nav>
+
+
+
+    <!-- ================= LEARN MORE BUTTONS ================= -->
+
+
+    <!-- BIS STANDARD MARK -->
+
+    <button
+        class="learn-button mark1"
+        onclick="openMark(1)">
+
+        LEARN MORE →
+
+    </button>
+
+
+
+    <!-- ISI MARK -->
+
+    <button
+        class="learn-button mark2"
+        onclick="openMark(2)">
+
+        LEARN MORE →
+
+    </button>
+
+
+
+    <!-- HALLMARK -->
+
+    <button
+        class="learn-button mark3"
+        onclick="openMark(3)">
+
+        LEARN MORE →
+
+    </button>
+
+
+
+    <!-- CERTIFICATION MARK -->
+
+    <button
+        class="learn-button mark4"
+        onclick="openMark(4)">
+
+        LEARN MORE →
+
+    </button>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- POPUP -->
+<!-- ================================================= -->
+
+<div
+    class="overlay"
+    id="overlay">
+
+
+    <div class="popup">
+
+
+        <h2 id="popupTitle"></h2>
+
+
+        <p id="popupText"></p>
+
+
+        <p id="popupUse"></p>
+
+
+        <p id="popupRemember"></p>
+
+
+        <button
+            class="close"
+            onclick="closePopup()">
+
+            CLOSE
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* ================================================= */
+/* MARK INFORMATION */
+/* ================================================= */
+
+const marks = {
+
+    1: {
+
+        title:
+        "🔷 BIS Standard Mark",
+
+        text:
+        "<strong>What is it?</strong><br>The BIS Standard Mark shows that a product conforms to the relevant Indian Standard.",
+
+        use:
+        "<strong>Where can you find it?</strong><br>It may appear on products that meet applicable BIS requirements.",
+
+        remember:
+        "🔎 <strong>Detective Tip:</strong> Look for the BIS Standard Mark when checking whether a product meets the required standard."
+
+    },
+
+
+    2: {
+
+        title:
+        "🔶 ISI Mark",
+
+        text:
+        "<strong>What is it?</strong><br>The ISI Mark indicates that a product conforms to the relevant Indian Standard under the BIS certification scheme.",
+
+        use:
+        "<strong>Where can you find it?</strong><br>It is commonly associated with products such as electrical appliances, cement and steel products.",
+
+        remember:
+        "🔎 <strong>Detective Tip:</strong> Check the mark and licence details rather than relying on the symbol alone."
+
+    },
+
+
+    3: {
+
+        title:
+        "💎 Hallmark",
+
+        text:
+        "<strong>What is it?</strong><br>Hallmarking provides an assurance of the purity of precious-metal articles such as gold and silver.",
+
+        use:
+        "<strong>Where can you find it?</strong><br>You can find hallmark-related markings on jewellery and other precious-metal articles.",
+
+        remember:
+        "🔎 <strong>Detective Tip:</strong> When buying precious-metal jewellery, check the hallmark and associated identification details."
+
+    },
+
+
+    4: {
+
+        title:
+        "🟢 BIS Certification Mark",
+
+        text:
+        "<strong>What is it?</strong><br>A BIS certification mark indicates that the product has been assessed under a BIS certification scheme and meets the applicable requirements.",
+
+        use:
+        "<strong>Why is it important?</strong><br>It helps consumers identify products that have undergone conformity assessment against relevant requirements.",
+
+        remember:
+        "🔎 <strong>Detective Tip:</strong> A genuine certification mark should be accompanied by the required licence or identification details."
+
+    }
+
+};
+
+
+
+/* ================================================= */
+/* OPEN POPUP */
+/* ================================================= */
+
+function openMark(number) {
+
+    const mark =
+        marks[number];
+
+
+    document
+        .getElementById("popupTitle")
+        .innerHTML =
+        mark.title;
+
+
+    document
+        .getElementById("popupText")
+        .innerHTML =
+        mark.text;
+
+
+    document
+        .getElementById("popupUse")
+        .innerHTML =
+        mark.use;
+
+
+    document
+        .getElementById("popupRemember")
+        .innerHTML =
+        mark.remember;
+
+
+    document
+        .getElementById("overlay")
+        .classList.add("show");
+
+}
+
+
+
+/* ================================================= */
+/* CLOSE POPUP */
+/* ================================================= */
+
+function closePopup() {
+
+    document
+        .getElementById("overlay")
+        .classList.remove("show");
+
+}
+
+</script>
+
+
+</body>
+
+</html>

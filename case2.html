@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Case 2 - BIS: The Standard Detective</title>
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            min-height: 100vh;
+
+            background: #f7f4ec;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            color: #263b6b;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =====================================================
+           TOP NAVIGATION
+        ===================================================== */
+
+        .navbar {
+            width: 100%;
+
+            height: 105px;
+
+            padding: 10px 5%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        /* =====================================================
+           BIS LOGO
+           logo.jpeg contains the logo in the upper-left
+           corner, so we crop the blank area visually.
+        ===================================================== */
+
+        .logo-container {
+            width: 280px;
+
+            height: 80px;
+
+            overflow: hidden;
+
+            position: relative;
+
+            flex-shrink: 0;
+        }
+
+
+        .logo-container img {
+            position: absolute;
+
+            width: 800px;
+
+            height: auto;
+
+            left: -1px;
+
+            top: -1px;
+
+            display: block;
+        }
+
+
+        /* =====================================================
+           NAV BUTTONS
+        ===================================================== */
+
+        .nav-buttons {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .nav-buttons a {
+            text-decoration: none;
+
+            color: #263b6b;
+
+            border: 1.5px solid #263b6b;
+
+            border-radius: 20px;
+
+            padding: 8px 16px;
+
+            background: transparent;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.2s ease;
+        }
+
+
+        .nav-buttons a:hover {
+            background: #263b6b;
+
+            color: white;
+        }
+
+
+        /* =====================================================
+           CASE PROGRESS
+        ===================================================== */
+
+        .progress-area {
+            width: 90%;
+
+            max-width: 1100px;
+
+            margin: 15px auto 0;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 14px;
+
+            font-size: 17px;
+        }
+
+
+        .case-number {
+            font-weight: 800;
+        }
+
+
+        .active-step {
+            font-weight: 800;
+        }
+
+
+        .progress-line {
+            width: 120px;
+
+            height: 2px;
+
+            background: #5576a8;
+        }
+
+
+        /* =====================================================
+           MAIN CONTENT
+        ===================================================== */
+
+        .container {
+            width: 90%;
+
+            max-width: 1000px;
+
+            margin: 50px auto 80px;
+
+            text-align: center;
+        }
+
+
+        /* =====================================================
+           TITLE
+        ===================================================== */
+
+        .title {
+            font-size: clamp(34px, 5vw, 56px);
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .subtitle {
+            font-size: clamp(16px, 2vw, 21px);
+
+            font-weight: 600;
+
+            margin-bottom: 32px;
+        }
+
+
+        /* =====================================================
+           SECRET CODE BOX
+        ===================================================== */
+
+        .lock-box {
+            width: 95%;
+
+            max-width: 720px;
+
+            margin: 0 auto 30px;
+
+            padding: 22px 25px;
+
+            background: #fffdf7;
+
+            border: 2px solid #d8d1c3;
+
+            border-radius: 20px;
+
+            box-shadow: 0 7px 22px rgba(38, 59, 107, 0.07);
+        }
+
+
+        .lock-icon {
+            font-size: 36px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .lock-title {
+            font-size: 19px;
+
+            font-weight: 800;
+
+            margin-bottom: 15px;
+        }
+
+
+        .code {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+        }
+
+
+        .code-box {
+            width: 52px;
+
+            height: 52px;
+
+            border-radius: 11px;
+
+            border: 2px dashed #8292af;
+
+            background: #f3f1e9;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 24px;
+
+            font-weight: 800;
+        }
+
+
+        .code-box.unlocked {
+            border: 2px solid #263b6b;
+
+            background: #e6ebf4;
+        }
+
+
+        /* =====================================================
+           CLUE CARD
+        ===================================================== */
+
+        .clue-card {
+            width: 95%;
+
+            max-width: 760px;
+
+            margin: auto;
+
+            padding: 32px 38px;
+
+            background: white;
+
+            border: 1px solid #ddd8cc;
+
+            border-radius: 22px;
+
+            box-shadow: 0 9px 27px rgba(38, 59, 107, 0.09);
+        }
+
+
+        .clue-number {
+            font-size: 15px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 16px;
+        }
+
+
+        .clue {
+            font-size: clamp(20px, 2.7vw, 29px);
+
+            line-height: 1.4;
+
+            font-weight: 700;
+
+            margin-bottom: 28px;
+        }
+
+
+        /* =====================================================
+           ANSWER BUTTONS
+        ===================================================== */
+
+        .answers {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 14px;
+
+            max-width: 650px;
+
+            margin: auto;
+        }
+
+
+        .answer {
+            min-height: 60px;
+
+            padding: 14px;
+
+            border-radius: 14px;
+
+            border: 2px solid #cbd2df;
+
+            background: #f8f9fb;
+
+            color: #263b6b;
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+
+        .answer:hover {
+            border-color: #263b6b;
+
+            background: #eef2f8;
+
+            transform: translateY(-2px);
+        }
+
+
+        .answer.correct {
+            background: #e5f3e7;
+
+            border-color: #4d8b59;
+
+            color: #31653a;
+        }
+
+
+        .answer.wrong {
+            background: #f8e5e5;
+
+            border-color: #bc5050;
+
+            color: #8b3030;
+        }
+
+
+        /* =====================================================
+           FEEDBACK
+        ===================================================== */
+
+        .feedback {
+            min-height: 27px;
+
+            margin-top: 20px;
+
+            font-size: 17px;
+
+            font-weight: 700;
+        }
+
+
+        .correct-text {
+            color: #397345;
+        }
+
+
+        .wrong-text {
+            color: #a33b3b;
+        }
+
+
+        /* =====================================================
+           NEXT BUTTON
+        ===================================================== */
+
+        .next-button {
+            display: none;
+
+            margin: 20px auto 0;
+
+            padding: 12px 28px;
+
+            border: none;
+
+            border-radius: 25px;
+
+            background: #263b6b;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+
+        .next-button:hover {
+            background: #18294d;
+        }
+
+
+        /* =====================================================
+           COMPLETION
+        ===================================================== */
+
+        .completion {
+            display: none;
+
+            width: 95%;
+
+            max-width: 760px;
+
+            margin: 30px auto 0;
+
+            padding: 38px 25px;
+
+            background: white;
+
+            border: 1px solid #ddd8cc;
+
+            border-radius: 22px;
+
+            box-shadow: 0 9px 27px rgba(38, 59, 107, 0.09);
+        }
+
+
+        .completion.show {
+            display: block;
+        }
+
+
+        .final-score {
+            font-size: 36px;
+
+            font-weight: 800;
+
+            margin-bottom: 10px;
+        }
+
+
+        .case-solved {
+            font-size: 30px;
+
+            font-weight: 800;
+
+            margin-bottom: 10px;
+        }
+
+
+        .final-message {
+            font-size: 18px;
+
+            line-height: 1.5;
+
+            margin-bottom: 24px;
+        }
+
+
+        .case3-button {
+            display: inline-block;
+
+            padding: 13px 28px;
+
+            border-radius: 25px;
+
+            background: #263b6b;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+
+        .case3-button:hover {
+            background: #18294d;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                height: auto;
+
+                padding: 15px 5%;
+
+                flex-direction: column;
+
+                gap: 12px;
+            }
+
+
+            .logo-container {
+                width: 240px;
+
+                height: 70px;
+            }
+
+
+            .logo-container img {
+                width: 690px;
+            }
+
+
+            .nav-buttons {
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+
+            .progress-area {
+                font-size: 13px;
+
+                gap: 7px;
+            }
+
+
+            .progress-line {
+                width: 40px;
+            }
+
+
+            .container {
+                margin-top: 35px;
+            }
+
+
+            .clue-card {
+                padding: 26px 18px;
+            }
+
+
+            .answers {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVIGATION
+    ===================================================== -->
+
+    <nav class="navbar">
+
+
+        <!-- BIS LOGO -->
+
+        <div class="logo-container">
+
+            <img src="logo.jpeg" alt="BIS - Bureau of Indian Standards">
+
+        </div>
+
+
+        <!-- NAVIGATION BUTTONS -->
+
+        <div class="nav-buttons">
+
+            <a href="index.html">Home</a>
+
+            <a href="cases.html">Cases</a>
+
+            <a href="marks.html">Marks</a>
+
+            <a href="quiz.html">Quiz</a>
+
+            <a href="score.html">Score</a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         CASE PROGRESS
+    ===================================================== -->
+
+    <div class="progress-area">
+
+        <span class="case-number">
+            Case 2/4
+        </span>
+
+        <span>+</span>
+
+        <span class="active-step">
+            Learn
+        </span>
+
+        <div class="progress-line"></div>
+
+        <span>
+            Crack
+        </span>
+
+        <div class="progress-line"></div>
+
+        <span>
+            Complete
+        </span>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ===================================================== -->
+
+    <main class="container">
+
+
+        <h1 class="title">
+            CRACK THE BIS CODE
+        </h1>
+
+
+        <p class="subtitle">
+            Four clues. Four answers. One secret code.
+        </p>
+
+
+
+        <!-- =================================================
+             SECRET CODE
+        ================================================== -->
+
+        <div class="lock-box">
+
+            <div class="lock-icon">
+                🔐
+            </div>
+
+
+            <div class="lock-title">
+                SECRET CODE
+            </div>
+
+
+            <div class="code">
+
+                <div class="code-box" id="code1">
+                    ?
+                </div>
+
+                <div class="code-box" id="code2">
+                    ?
+                </div>
+
+                <div class="code-box" id="code3">
+                    ?
+                </div>
+
+                <div class="code-box" id="code4">
+                    ?
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CLUE CARD
+        ================================================== -->
+
+        <div class="clue-card" id="clueCard">
+
+
+            <div class="clue-number" id="clueNumber">
+                Clue 1 of 4
+            </div>
+
+
+            <div class="clue" id="clueText">
+                I am used for gold and jewellery
+                to indicate purity. Who am I?
+            </div>
+
+
+
+            <div class="answers">
+
+
+                <button class="answer"
+                    data-answer="isi">
+
+                    ISI Mark
+
+                </button>
+
+
+                <button class="answer"
+                    data-answer="bis">
+
+                    BIS Standard Mark
+
+                </button>
+
+
+                <button class="answer"
+                    data-answer="hallmark">
+
+                    Hallmark
+
+                </button>
+
+
+                <button class="answer"
+                    data-answer="safety">
+
+                    Safety Mark
+
+                </button>
+
+
+            </div>
+
+
+
+            <div
+                class="feedback"
+                id="feedback">
+            </div>
+
+
+
+            <button
+                class="next-button"
+                id="nextButton">
+
+                NEXT CLUE →
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             COMPLETION
+        ================================================== -->
+
+        <div
+            class="completion"
+            id="completion">
+
+
+            <div class="final-score">
+                4/4 CLUES SOLVED!
+            </div>
+
+
+            <div class="case-solved">
+                🕵️ CASE SOLVED!
+            </div>
+
+
+            <div class="final-message">
+                Excellent detective work!<br>
+                You cracked the BIS code.
+            </div>
+
+
+            <a
+                href="case3.html"
+                class="case3-button">
+
+                GO TO CASE 3 →
+
+            </a>
+
+
+        </div>
+
+
+    </main>
+
+
+
+    <script>
+
+        /* =====================================================
+           CASE QUESTIONS
+        ===================================================== */
+
+        const questions = [
+
+            {
+                clue:
+                    "I am used for gold and jewellery to indicate purity. Who am I?",
+
+                answer:
+                    "hallmark",
+
+                code:
+                    "H"
+            },
+
+
+            {
+                clue:
+                    "I indicate that a product follows Indian Standards. Who am I?",
+
+                answer:
+                    "bis",
+
+                code:
+                    "7"
+            },
+
+
+            {
+                clue:
+                    "I indicate that a product meets specific quality and safety standards. Who am I?",
+
+                answer:
+                    "isi",
+
+                code:
+                    "B"
+            },
+
+
+            {
+                clue:
+                    "I show that a specific product meets the required safety requirements. Who am I?",
+
+                answer:
+                    "safety",
+
+                code:
+                    "4"
+            }
+
+        ];
+
+
+        /* =====================================================
+           VARIABLES
+        ===================================================== */
+
+        let currentQuestion = 0;
+
+        let caseFinished = false;
+
+
+        /* =====================================================
+           ELEMENTS
+        ===================================================== */
+
+        const clueNumber =
+            document.getElementById("clueNumber");
+
+        const clueText =
+            document.getElementById("clueText");
+
+        const feedback =
+            document.getElementById("feedback");
+
+        const nextButton =
+            document.getElementById("nextButton");
+
+        const clueCard =
+            document.getElementById("clueCard");
+
+        const completion =
+            document.getElementById("completion");
+
+        const answerButtons =
+            document.querySelectorAll(".answer");
+
+
+        /* =====================================================
+           LOAD CURRENT CLUE
+        ===================================================== */
+
+        function loadQuestion() {
+
+            const question =
+                questions[currentQuestion];
+
+
+            clueNumber.textContent =
+                "Clue " +
+                (currentQuestion + 1) +
+                " of 4";
+
+
+            clueText.textContent =
+                question.clue;
+
+
+            feedback.textContent = "";
+
+            feedback.className =
+                "feedback";
+
+
+            nextButton.style.display =
+                "none";
+
+
+            answerButtons.forEach(button => {
+
+                button.disabled = false;
+
+                button.classList.remove(
+                    "correct",
+                    "wrong"
+                );
+
+            });
+
+        }
+
+
+        /* =====================================================
+           ANSWER BUTTONS
+        ===================================================== */
+
+        answerButtons.forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+
+                    if (caseFinished) {
+                        return;
+                    }
+
+
+                    const selectedAnswer =
+                        this.dataset.answer;
+
+
+                    const correctAnswer =
+                        questions[currentQuestion].answer;
+
+
+
+                    /* =========================================
+                       CORRECT
+                    ========================================= */
+
+                    if (
+                        selectedAnswer ===
+                        correctAnswer
+                    ) {
+
+
+                        this.classList.add(
+                            "correct"
+                        );
+
+
+                        feedback.textContent =
+                            "✓ Correct! Code piece unlocked.";
+
+
+                        feedback.classList.add(
+                            "correct-text"
+                        );
+
+
+                        /* Unlock code box */
+
+                        const codeBox =
+                            document.getElementById(
+                                "code" +
+                                (currentQuestion + 1)
+                            );
+
+
+                        codeBox.textContent =
+                            questions[
+                                currentQuestion
+                            ].code;
+
+
+                        codeBox.classList.add(
+                            "unlocked"
+                        );
+
+
+                        /* Disable answers */
+
+                        answerButtons.forEach(
+                            btn => {
+                                btn.disabled = true;
+                            }
+                        );
+
+
+                        /* Last clue */
+
+                        if (
+                            currentQuestion === 3
+                        ) {
+
+                            nextButton.textContent =
+                                "UNLOCK CASE →";
+
+                        }
+
+
+                        nextButton.style.display =
+                            "inline-block";
+
+                    }
+
+
+
+                    /* =========================================
+                       WRONG
+                    ========================================= */
+
+                    else {
+
+
+                        this.classList.add(
+                            "wrong"
+                        );
+
+
+                        feedback.textContent =
+                            "✗ Not quite. Try another answer.";
+
+
+                        feedback.classList.add(
+                            "wrong-text"
+                        );
+
+
+                        setTimeout(() => {
+
+                            this.classList.remove(
+                                "wrong"
+                            );
+
+                        }, 600);
+
+                    }
+
+                }
+            );
+
+        });
+
+
+
+        /* =====================================================
+           NEXT BUTTON
+        ===================================================== */
+
+        nextButton.addEventListener(
+            "click",
+            function () {
+
+
+                /* Last clue */
+
+                if (
+                    currentQuestion === 3
+                ) {
+
+                    finishCase();
+
+                    return;
+
+                }
+
+
+                currentQuestion++;
+
+                loadQuestion();
+
+            }
+        );
+
+
+
+        /* =====================================================
+           FINISH CASE
+        ===================================================== */
+
+        function finishCase() {
+
+
+            caseFinished = true;
+
+
+            /* Save completion */
+
+            localStorage.setItem(
+                "case2Completed",
+                "true"
+            );
+
+
+            clueCard.style.display =
+                "none";
+
+
+            completion.classList.add(
+                "show"
+            );
+
+
+            completion.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }
+
+
+
+        /* =====================================================
+           START CASE
+        ===================================================== */
+
+        loadQuestion();
+
+    </script>
+
+</body>
+
+</html>

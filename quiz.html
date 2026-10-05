@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIS: The Standard Detective - Quiz</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    background: #dff4ff;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* =========================================
+   MAIN QUIZ PAGE
+========================================= */
+
+.quiz-page {
+    position: relative;
+    width: 100vw;
+    max-width: 1536px;
+    margin: 0 auto;
+
+    aspect-ratio: 1536 / 1024;
+
+    background-image: url("quiz.jpeg");
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 100% 100%;
+
+    overflow: hidden;
+}
+
+/* =========================================
+   TOP NAVIGATION
+========================================= */
+
+.nav {
+    position: absolute;
+    top: 4%;
+    right: 3.2%;
+
+    display: flex;
+    align-items: center;
+    gap: clamp(7px, 0.8vw, 13px);
+
+    z-index: 50;
+}
+
+.nav a {
+    display: block;
+
+    min-width: clamp(65px, 6.2vw, 100px);
+
+    padding: clamp(7px, 0.7vw, 10px)
+             clamp(10px, 1vw, 16px);
+
+    text-align: center;
+    text-decoration: none;
+
+    color: #173f75;
+
+    font-size: clamp(10px, 1vw, 16px);
+    font-weight: bold;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border-radius: 25px;
+
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.15);
+
+    transition: 0.2s ease;
+}
+
+.nav a:hover {
+    transform: translateY(-2px);
+}
+
+.nav .active {
+    background: #f5bd29;
+    color: #173f75;
+}
+
+/* =========================================
+   INVISIBLE QUIZ BOX
+========================================= */
+
+.quiz-box {
+    position: absolute;
+
+    left: 50%;
+    top: 56%;
+
+    transform: translate(-50%, -50%);
+
+    width: 55%;
+    max-width: 820px;
+    min-height: 48%;
+
+    padding: 3.2% 4%;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+
+    z-index: 20;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* =========================================
+   QUESTION NUMBER
+   POSITION UNCHANGED
+========================================= */
+
+.question-number {
+    align-self: flex-start;
+
+    padding: 8px 18px;
+
+    background: #d9efff;
+    color: #173f75;
+
+    border-radius: 20px;
+
+    font-size: clamp(12px, 1.1vw, 18px);
+    font-weight: bold;
+
+    margin-bottom: 2.5%;
+}
+
+/* =========================================
+   QUESTION
+========================================= */
+
+.question {
+    color: #173f75;
+
+    font-size: clamp(18px, 2vw, 30px);
+
+    font-weight: bold;
+
+    line-height: 1.3;
+
+    text-align: center;
+
+    margin-bottom: 7%;
+}
+
+/* =========================================
+   ANSWER OPTIONS
+========================================= */
+
+.options {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    column-gap: 22px;
+
+    row-gap: 55px;
+}
+
+/* =========================================
+   OPTION BUTTON
+========================================= */
+
+.option {
+    width: 100%;
+
+    padding: clamp(11px, 1vw, 16px);
+
+    border: 2px solid #4c9ed8;
+
+    border-radius: 16px;
+
+    background: #e9f7ff;
+
+    color: #173f75;
+
+    font-size: clamp(12px, 1.15vw, 18px);
+
+    font-weight: bold;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.option:hover {
+    transform: translateY(-2px);
+    background: #d8efff;
+}
+
+.option.correct {
+    background: #9be2b4;
+    border-color: #3ca866;
+    color: #145d31;
+}
+
+.option.wrong {
+    background: #f3aaaa;
+    border-color: #d75b5b;
+    color: #7a2020;
+}
+
+/* =========================================
+   LOWER SET
+   PROGRESS + NEXT
+========================================= */
+
+.quiz-controls {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 9%;
+}
+
+.progress {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+}
+
+.progress-dot {
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: #c5dce9;
+
+    transition: 0.2s ease;
+}
+
+.progress-dot.active {
+    background: #f5bd29;
+    transform: scale(1.2);
+}
+
+.progress-dot.done {
+    background: #58b77c;
+}
+
+/* =========================================
+   NEXT BUTTON
+========================================= */
+
+.next-button {
+    border: none;
+
+    padding: 10px 22px;
+
+    border-radius: 25px;
+
+    background: #f5bd29;
+
+    color: #173f75;
+
+    font-size: clamp(11px, 1vw, 16px);
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+
+    transition: 0.2s ease;
+}
+
+.next-button:hover {
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   COMPLETION MESSAGE
+========================================= */
+
+.complete-message {
+    display: none;
+
+    text-align: center;
+
+    color: #173f75;
+}
+
+.complete-message h2 {
+    margin: 0 0 15px;
+
+    font-size: clamp(24px, 2.8vw, 40px);
+}
+
+.complete-message p {
+    margin: 0 0 22px;
+
+    font-size: clamp(14px, 1.3vw, 20px);
+
+    font-weight: bold;
+}
+
+/* =========================================
+   FINISH BUTTON
+========================================= */
+
+.finish-button {
+    display: none;
+
+    width: fit-content;
+
+    margin: 0 auto;
+
+    padding: 12px 25px;
+
+    border-radius: 25px;
+
+    background: #58b77c;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    font-size: clamp(12px, 1vw, 17px);
+
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+
+    transition: 0.2s ease;
+}
+
+.finish-button:hover {
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .nav {
+        top: 3%;
+        right: 2%;
+
+        gap: 4px;
+    }
+
+    .nav a {
+        min-width: auto;
+
+        padding: 5px 7px;
+
+        font-size: 8px;
+
+        border-radius: 18px;
+    }
+
+    .quiz-box {
+        width: 68%;
+        min-height: 48%;
+
+        padding: 3% 4%;
+    }
+
+    .question-number {
+        padding: 5px 11px;
+
+        font-size: 10px;
+
+        margin-bottom: 3%;
+    }
+
+    .question {
+        font-size: 15px;
+
+        margin-bottom: 7%;
+    }
+
+    .options {
+        column-gap: 10px;
+
+        row-gap: 28px;
+    }
+
+    .option {
+        padding: 8px 6px;
+
+        font-size: 9px;
+
+        border-radius: 10px;
+    }
+
+    .quiz-controls {
+        margin-top: 7%;
+    }
+
+    .progress-dot {
+        width: 6px;
+        height: 6px;
+    }
+
+    .next-button {
+        padding: 7px 12px;
+
+        font-size: 9px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="quiz-page">
+
+    <!-- =====================================
+         TOP NAVIGATION
+    ====================================== -->
+
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="cases.html">Cases</a>
+        <a href="marks.html">Marks</a>
+        <a href="quiz.html" class="active">Quiz</a>
+        <a href="score.html">Score</a>
+    </nav>
+
+
+    <!-- =====================================
+         INVISIBLE QUIZ BOX
+    ====================================== -->
+
+    <div class="quiz-box">
+
+        <div class="question-number" id="questionNumber">
+            QUESTION 1/10
+        </div>
+
+        <div class="question" id="questionText">
+            What does BIS stand for?
+        </div>
+
+        <div class="options" id="optionsContainer"></div>
+
+        <div class="quiz-controls" id="quizControls">
+
+            <div class="progress" id="progress"></div>
+
+            <button class="next-button" id="nextButton">
+                NEXT →
+            </button>
+
+        </div>
+
+        <div class="complete-message" id="completeMessage">
+
+            <h2>QUIZ COMPLETE!</h2>
+
+            <p>
+                You have solved all the questions, Detective!
+            </p>
+
+            <a
+                href="score.html"
+                class="finish-button"
+                id="finishButton"
+            >
+                VIEW MY SCORE →
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   QUIZ QUESTIONS
+========================================= */
+
+const questions = [
+
+    {
+        question: "What does BIS stand for?",
+        options: [
+            "Board of Indian Safety",
+            "Bureau of International Standards",
+            "Bureau of Indian Standards",
+            "Board of Industrial Standards"
+        ],
+        answer: 2
+    },
+
+    {
+        question: "What is the main purpose of standards?",
+        options: [
+            "To improve quality and safety",
+            "To increase product prices",
+            "To reduce product variety",
+            "To replace manufacturers"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "Which mark is commonly associated with BIS certification of products?",
+        options: [
+            "Hallmark",
+            "Quality Mark",
+            "Safety Seal",
+            "BIS Standard Mark"
+        ],
+        answer: 3
+    },
+
+    {
+        question: "What does hallmarking mainly provide assurance about?",
+        options: [
+            "Size of jewellery",
+            "Purity of precious-metal articles",
+            "Price of jewellery",
+            "Colour of jewellery"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "Which organisation develops Indian Standards?",
+        options: [
+            "Reserve Bank of India",
+            "Indian Railways",
+            "Bureau of Indian Standards",
+            "Food Corporation of India"
+        ],
+        answer: 2
+    },
+
+    {
+        question: "Why are product standards important?",
+        options: [
+            "They make every product identical",
+            "They remove all product choices",
+            "They guarantee the lowest price",
+            "They help ensure quality and safety"
+        ],
+        answer: 3
+    },
+
+    {
+        question: "Which of these is associated with precious-metal jewellery?",
+        options: [
+            "ISI Mark",
+            "Hallmark",
+            "BIS Standard Mark",
+            "Energy Label"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "What can consumers check to identify a certified product?",
+        options: [
+            "The applicable mark and licence details",
+            "Only the product colour",
+            "Only the product price",
+            "Only the brand name"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "BIS standards mainly help products become more:",
+        options: [
+            "Expensive and rare",
+            "Large and colourful",
+            "Complex and difficult",
+            "Reliable and safe"
+        ],
+        answer: 3
+    },
+
+    {
+        question: "What does a BIS certification mark indicate?",
+        options: [
+            "The product is the cheapest available",
+            "The product is imported",
+            "The product meets applicable requirements",
+            "The product is handmade"
+        ],
+        answer: 2
+    }
+
+];
+
+
+/* =========================================
+   VARIABLES
+========================================= */
+
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const questionNumber =
+    document.getElementById("questionNumber");
+
+const questionText =
+    document.getElementById("questionText");
+
+const optionsContainer =
+    document.getElementById("optionsContainer");
+
+const nextButton =
+    document.getElementById("nextButton");
+
+const progress =
+    document.getElementById("progress");
+
+const quizControls =
+    document.getElementById("quizControls");
+
+const completeMessage =
+    document.getElementById("completeMessage");
+
+const finishButton =
+    document.getElementById("finishButton");
+
+
+/* =========================================
+   CREATE PROGRESS DOTS
+========================================= */
+
+questions.forEach((question, index) => {
+
+    const dot = document.createElement("div");
+
+    dot.classList.add("progress-dot");
+
+    if (index === 0) {
+        dot.classList.add("active");
+    }
+
+    progress.appendChild(dot);
+
+});
+
+
+/* =========================================
+   LOAD QUESTION
+========================================= */
+
+function loadQuestion() {
+
+    answered = false;
+
+    const question = questions[currentQuestion];
+
+    questionNumber.textContent =
+        `QUESTION ${currentQuestion + 1}/10`;
+
+    questionText.textContent =
+        question.question;
+
+    optionsContainer.innerHTML = "";
+
+    question.options.forEach((option, index) => {
+
+        const button =
+            document.createElement("button");
+
+        button.classList.add("option");
+
+        button.textContent = option;
+
+        button.addEventListener("click", () => {
+
+            if (answered) return;
+
+            answered = true;
+
+            if (index === question.answer) {
+
+                button.classList.add("correct");
+
+                score++;
+
+            } else {
+
+                button.classList.add("wrong");
+
+                const correctButton =
+                    optionsContainer.children[
+                        question.answer
+                    ];
+
+                correctButton.classList.add("correct");
+
+            }
+
+        });
+
+        optionsContainer.appendChild(button);
+
+    });
+
+    updateProgress();
+}
+
+
+/* =========================================
+   UPDATE PROGRESS
+========================================= */
+
+function updateProgress() {
+
+    const dots =
+        document.querySelectorAll(".progress-dot");
+
+    dots.forEach((dot, index) => {
+
+        dot.classList.remove("active");
+
+        if (index < currentQuestion) {
+            dot.classList.add("done");
+        }
+
+        if (index === currentQuestion) {
+            dot.classList.add("active");
+        }
+
+    });
+}
+
+
+/* =========================================
+   NEXT BUTTON
+========================================= */
+
+nextButton.addEventListener("click", () => {
+
+    if (!answered) return;
+
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+
+        loadQuestion();
+
+    } else {
+
+        showComplete();
+
+    }
+
+});
+
+
+/* =========================================
+   COMPLETE QUIZ
+========================================= */
+
+function showComplete() {
+
+    questionNumber.style.display = "none";
+
+    questionText.style.display = "none";
+
+    optionsContainer.style.display = "none";
+
+    quizControls.style.display = "none";
+
+    completeMessage.style.display = "block";
+
+    finishButton.style.display = "block";
+
+    localStorage.setItem(
+        "bisQuizScore",
+        score
+    );
+
+    localStorage.setItem(
+        "bisQuizTotal",
+        questions.length
+    );
+
+}
+
+
+/* =========================================
+   START QUIZ
+========================================= */
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
